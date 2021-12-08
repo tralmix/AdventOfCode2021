@@ -1,8 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using AdventOfCode2021;
 
-Console.WriteLine("Hello, World!");
-
+Console.WriteLine("Advent of Code - 2021!");
 
 // Day 01
 var day01LinesOfInput = File.ReadAllLines("Inputs/Day01Input.txt");
