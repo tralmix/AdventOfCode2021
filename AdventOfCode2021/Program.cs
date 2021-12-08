@@ -15,3 +15,5 @@ var day02LinesOfInput = File.ReadAllLines("Inputs/Day02Input.txt");
 var instructions = Day02.ParseInstructions(day02LinesOfInput);
 var location = Day02.FindLocationAfterInstructions(instructions);
 Console.WriteLine($"Final location {location.Horizontal}, {location.Depth}. Product = {location.Depth * location.Horizontal}");
+var correctLocation = Day02.FindLocationAfterUpdatedInstructions(instructions);
+Console.WriteLine($"Final location {correctLocation.Horizontal}, {correctLocation.Depth}. Product = {correctLocation.Depth * correctLocation.Horizontal}");
