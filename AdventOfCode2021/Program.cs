@@ -2,12 +2,15 @@
 using AdventOfCode2021;
 
 Console.WriteLine("Advent of Code - 2021!");
+Console.WriteLine();
 
 // Day 01
 var day01LinesOfInput = File.ReadAllLines("Inputs/Day01Input.txt");
 var day01Input = day01LinesOfInput.Select(int.Parse).ToArray();
 Console.WriteLine($"Day 01 - Part 1 - {Day01.FindNumberOfIncreasesInDepth(day01Input)}");
 Console.WriteLine($"Day 01 - Part 2 - {Day01.FindDepthIncreaseCountForWindowsOfThree(day01Input)}");
+
+Console.WriteLine();
 
 // Day 02
 var day02LinesOfInput = File.ReadAllLines("Inputs/Day02Input.txt");
