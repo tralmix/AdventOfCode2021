@@ -14,11 +14,11 @@ namespace AdventOfCode2021
 			if (input is null || input.Length == 0)
 				return 0;
 
-			var rateString = BuildRateString (input, rateType);
+			var rateString = BuildRateString(input, rateType);
 
 			Debug.WriteLine($"{RateType.GetName(rateType)}: {rateString}");
 
-			return GetRate(rateString);
+			return GetValueFromBinary(rateString);
 		}
 
 		private static string BuildRateString(string[] input, RateType rateType)
@@ -27,10 +27,10 @@ namespace AdventOfCode2021
 			var inputLength = input[0].Length;
 
 			Func<string[], int, char> valueFunction = rateType == RateType.Gamma ? GammaValue : EpsilonValue;
-			
+
 			for (int i = 0; i < inputLength; i++)
 				stringBuilder.Append(valueFunction(input, i));
-			
+
 			return stringBuilder.ToString();
 		}
 
@@ -44,7 +44,7 @@ namespace AdventOfCode2021
 			return input.Count(x => x[i] == '1') < input.Length / 2 ? '1' : '0';
 		}
 
-		private static int GetRate(string rateString)
+		private static int GetValueFromBinary(string rateString)
 		{
 			var rate = 0;
 			for (int i = 0; i < rateString.Length; i++)
@@ -52,10 +52,47 @@ namespace AdventOfCode2021
 
 			return rate;
 		}
+
+		public static int GetOxygenGeneratorRating(string[] input) => GetRating(input.ToArray(), RatingType.OxygenGenerator);
+
+		public static int GetCO2ScrubberRating(string[] input) => GetRating(input.ToArray(), RatingType.CO2Scrubber);
+
+		private static int GetRating(string[] input, RatingType ratingType)
+		{
+			var diagnosticOutput = FindOutput(input, ratingType);
+			return GetValueFromBinary(diagnosticOutput);
+		}
+
+		private static string FindOutput(string[] input, RatingType ratingType)
+		{
+			var index = 0;
+			while (input.Length > 1)
+			{
+				var charToKeep = FindCharToKeep(input, index, ratingType);
+				input = input.Where(i=>i[index] == charToKeep).ToArray();
+				index++;
+			}
+
+			return input.First();
+		}
+
+		private static char FindCharToKeep(string[] input, int index, RatingType ratingType)
+		{
+			if (ratingType == RatingType.OxygenGenerator)
+				return input.Count(x => x[index] == '1') >= (int) Math.Ceiling(input.Length / 2d) ? '1' : '0';
+			
+			return input.Count(x => x[index] == '0') <= (int) Math.Floor(input.Length / 2d) ? '0' : '1';
+		}
 	}
 	public enum RateType
 	{
 		Gamma,
 		Epsilon
+	}
+
+	public enum RatingType
+	{
+		OxygenGenerator,
+		CO2Scrubber
 	}
 }

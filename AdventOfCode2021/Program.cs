@@ -27,3 +27,6 @@ var day03LinesOfInput = File.ReadAllLines("Inputs/Day03Input.txt");
 var gammaRate = Day03.GetGammaRate(day03LinesOfInput);
 var epsilonRate = Day03.GetEpsilonRate(day03LinesOfInput);
 Console.WriteLine($"Day 03 - Part 1 - Gamma {gammaRate}, Epsilon {epsilonRate}, Power Consumption {gammaRate * epsilonRate}");
+var oxygenGeneratorRating = Day03.GetOxygenGeneratorRating(day03LinesOfInput);
+var co2ScrubberRating = Day03.GetCO2ScrubberRating(day03LinesOfInput);
+Console.WriteLine($"Day 03 - Part 2 - O2 {oxygenGeneratorRating}, CO2 {co2ScrubberRating}, Life Support Rating {oxygenGeneratorRating * co2ScrubberRating}");
