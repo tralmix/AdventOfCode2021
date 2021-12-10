@@ -19,3 +19,11 @@ var location = Day02.FindLocationAfterInstructions(instructions);
 Console.WriteLine($"Final location {location.Horizontal}, {location.Depth}. Product = {location.Depth * location.Horizontal}");
 var correctLocation = Day02.FindLocationAfterUpdatedInstructions(instructions);
 Console.WriteLine($"Final location {correctLocation.Horizontal}, {correctLocation.Depth}. Product = {correctLocation.Depth * correctLocation.Horizontal}");
+
+Console.WriteLine();
+
+// Day 03
+var day03LinesOfInput = File.ReadAllLines("Inputs/Day03Input.txt");
+var gammaRate = Day03.GetGammaRate(day03LinesOfInput);
+var epsilonRate = Day03.GetEpsilonRate(day03LinesOfInput);
+Console.WriteLine($"Day 03 - Part 1 - Gamma {gammaRate}, Epsilon {epsilonRate}, Power Consumption {gammaRate * epsilonRate}");
