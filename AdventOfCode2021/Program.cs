@@ -16,9 +16,9 @@ Console.WriteLine();
 var day02LinesOfInput = File.ReadAllLines("Inputs/Day02Input.txt");
 var instructions = Day02.ParseInstructions(day02LinesOfInput);
 var location = Day02.FindLocationAfterInstructions(instructions);
-Console.WriteLine($"Final location {location.Horizontal}, {location.Depth}. Product = {location.Depth * location.Horizontal}");
+Console.WriteLine($"Day 02 - Part 1 -Final location {location.Horizontal}, {location.Depth}. Product = {location.Depth * location.Horizontal}");
 var correctLocation = Day02.FindLocationAfterUpdatedInstructions(instructions);
-Console.WriteLine($"Final location {correctLocation.Horizontal}, {correctLocation.Depth}. Product = {correctLocation.Depth * correctLocation.Horizontal}");
+Console.WriteLine($"Day 02 - Part 2 -Final location {correctLocation.Horizontal}, {correctLocation.Depth}. Product = {correctLocation.Depth * correctLocation.Horizontal}");
 
 Console.WriteLine();
 
@@ -30,3 +30,14 @@ Console.WriteLine($"Day 03 - Part 1 - Gamma {gammaRate}, Epsilon {epsilonRate}, 
 var oxygenGeneratorRating = Day03.GetOxygenGeneratorRating(day03LinesOfInput);
 var co2ScrubberRating = Day03.GetCO2ScrubberRating(day03LinesOfInput);
 Console.WriteLine($"Day 03 - Part 2 - O2 {oxygenGeneratorRating}, CO2 {co2ScrubberRating}, Life Support Rating {oxygenGeneratorRating * co2ScrubberRating}");
+
+Console.WriteLine();
+
+// Day 04
+var day04LinesOfInput = File.ReadAllLines("Inputs/Day04Input.txt");
+var numberCallOrder = Day04.GetNumberCallOrder(day04LinesOfInput);
+var boards = Day04.GetBoards(day04LinesOfInput);
+var winner = Day04.FindWinningBoardAndNumber(numberCallOrder, boards);
+Console.WriteLine($"Day 04 - Part 1 - Winning Numbers {string.Join(',', winner.Board.WinningNumbers)}");
+Console.WriteLine($"Day 04 - Part 1 - Last Number Drawn {string.Join(',', winner.Number)}");
+Console.WriteLine($"Day 04 - Part 1 - Final Score {winner.Board.SumOfUnmarked * int.Parse(winner.Number)}");
