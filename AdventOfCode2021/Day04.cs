@@ -62,6 +62,32 @@ namespace AdventOfCode2021
 
 			return winner;
 		}
+
+		public static Winner FindLastWinningBoardAndNumber(string[] numberCallOrder, List<Board> boards)
+		{
+			var enumerator = numberCallOrder.GetEnumerator();
+			enumerator.MoveNext();
+			do
+			{
+				var loop = Parallel.ForEach(boards, b => b.MarkValue((string) enumerator.Current));
+				while (!loop.IsCompleted) continue;
+				boards.RemoveAll(b => b.IsWinner());
+			} while (boards.Count > 1 && enumerator.MoveNext());
+
+			var board = boards.Single();
+			while (!board.IsWinner())
+			{
+				enumerator.MoveNext();
+				board.MarkValue((string) enumerator.Current);
+			}
+			
+			return new Winner
+			{
+				Board = board,
+				Number = (string)enumerator.Current
+			};
+
+		}
 	}
 
 	public class Board
