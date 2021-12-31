@@ -1,10 +1,24 @@
 ﻿using System.Diagnostics;
-using System.Linq;
 
 namespace AdventOfCode2021
 {
 	public static class Day04
 	{
+		public static void Run()
+		{
+			var day04LinesOfInput = File.ReadAllLines("Inputs/Day04Input.txt");
+			var numberCallOrder = Day04.GetNumberCallOrder(day04LinesOfInput);
+			var boards = Day04.GetBoards(day04LinesOfInput);
+			var winner = Day04.FindWinningBoardAndNumber(numberCallOrder, Day04.GetBoards(day04LinesOfInput));
+			Console.WriteLine($"Day 04 - Part 1 - Winning Numbers {string.Join(',', winner.Board.WinningNumbers)}");
+			Console.WriteLine($"Day 04 - Part 1 - Last Number Drawn {string.Join(',', winner.Number)}");
+			Console.WriteLine($"Day 04 - Part 1 - Final Score {winner.Board.SumOfUnmarked * int.Parse(winner.Number)}");
+			var lastWinner = Day04.FindLastWinningBoardAndNumber(numberCallOrder, Day04.GetBoards(day04LinesOfInput));
+			Console.WriteLine($"Day 04 - Part 2 - Winning Numbers {string.Join(',', lastWinner.Board.WinningNumbers)}");
+			Console.WriteLine($"Day 04 - Part 2 - Last Number Drawn {string.Join(',', lastWinner.Number)}");
+			Console.WriteLine($"Day 04 - Part 2 - Final Score {lastWinner.Board.SumOfUnmarked * int.Parse(lastWinner.Number)}");
+		}
+
 		public static string[] GetNumberCallOrder(string[] input)
 		{
 			// First line of input is number call order

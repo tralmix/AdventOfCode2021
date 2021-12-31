@@ -2,6 +2,14 @@
 {
 	public static class Day01
 	{
+		public static void Run()
+		{
+			var day01LinesOfInput = File.ReadAllLines("Inputs/Day01Input.txt");
+			var day01Input = day01LinesOfInput.Select(int.Parse).ToArray();
+			Console.WriteLine($"Day 01 - Part 1 - {FindNumberOfIncreasesInDepth(day01Input)}");
+			Console.WriteLine($"Day 01 - Part 2 - {FindDepthIncreaseCountForWindowsOfThree(day01Input)}");
+		}
+
 		public static int FindNumberOfIncreasesInDepth(params int[] depths)
 		{
 			if(depths is null) return 0;

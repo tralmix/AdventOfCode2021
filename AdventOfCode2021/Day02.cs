@@ -2,6 +2,16 @@
 {
 	public static class Day02
 	{
+		public static void Run()
+		{
+			var day02LinesOfInput = File.ReadAllLines("Inputs/Day02Input.txt");
+			var instructions = ParseInstructions(day02LinesOfInput);
+			var location = FindLocationAfterInstructions(instructions);
+			Console.WriteLine($"Day 02 - Part 1 -Final location {location.Horizontal}, {location.Depth}. Product = {location.Depth * location.Horizontal}");
+			var correctLocation = FindLocationAfterUpdatedInstructions(instructions);
+			Console.WriteLine($"Day 02 - Part 2 -Final location {correctLocation.Horizontal}, {correctLocation.Depth}. Product = {correctLocation.Depth * correctLocation.Horizontal}");
+		}
+
 		public static IEnumerable<Instructions> ParseInstructions(params string[] input)
 		{
 			if (input is null) return new List<Instructions>();
