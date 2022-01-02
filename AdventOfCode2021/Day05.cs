@@ -13,10 +13,20 @@ namespace AdventOfCode2021
 		{
 			var inputLines = File.ReadAllLines("Inputs/Day05Input.txt");
 			var input = ParseInput(inputLines);
+
+			var pointsCrossed = Solve(input, 1);
+			Console.WriteLine($"Day 05 - Part 1 - Number of overlaps {pointsCrossed.Count(p => p.Value > 1)}");
+
+			pointsCrossed = Solve(input, 2);
+			Console.WriteLine($"Day 05 - Part 2 - Number of overlaps {pointsCrossed.Count(p => p.Value > 1)}");
+		}
+
+		private static Dictionary<Point, int> Solve(List<Line> input, int part)
+		{
 			var pointsCrossed = new Dictionary<Point, int>();
 			foreach (var line in input)
 			{
-				if (!line.IsVertical && !line.IsHorizontal) continue;
+				if (part == 1 && !line.IsVertical && !line.IsHorizontal) continue;
 				foreach (var vertex in line.Vertices)
 				{
 					if (pointsCrossed.ContainsKey(vertex))
@@ -26,8 +36,7 @@ namespace AdventOfCode2021
 				}
 			}
 
-			Console.WriteLine($"Day 05 - Part 1 - Number of overlaps {pointsCrossed.Count(p => p.Value > 1)}");
-
+			return pointsCrossed;
 		}
 
 		private static List<Line> ParseInput(string[] inputLines)
@@ -136,6 +145,8 @@ namespace AdventOfCode2021
 				}
 			}
 
+			public bool IsDiagonal => !IsVertical && !IsHorizontal;
+
 			public List<Point> Vertices
 			{
 				get
@@ -154,9 +165,18 @@ namespace AdventOfCode2021
 						else
 							_vertices.AddRange(Enumerable.Range(B.Y, A.Y - B.Y + 1).Select(y => new Point(A.X, y)));
 
+					// Can be assumed to be diagonal given ruleset but oh well
+					if (IsDiagonal)
+					{
+						var xValues = A.X < B.X ? Enumerable.Range(A.X, B.X - A.X + 1) : Enumerable.Range(B.X, A.X - B.X + 1).Reverse();
+						var yValues = A.Y < B.Y ? Enumerable.Range(A.Y, B.Y - A.Y + 1) : Enumerable.Range(B.Y, A.Y - B.Y + 1).Reverse();
+
+						_vertices.AddRange(xValues.Zip(yValues).Select(zip => new Point(zip.First,zip.Second)));
+					}
+
 					return _vertices;
 				}
-}
+			}
 		}
 	}
 }
