@@ -45,19 +45,12 @@ namespace AdventOfCode2021
 			foreach (var inputLine in inputLines)
 			{
 				var pointStrings = inputLine.Split("->").Select(x => x.Trim()).ToArray();
-				var line = new Line
-				{
-					A = new Point
-					{
-						X = int.Parse(pointStrings[0].Split(',')[0]),
-						Y = int.Parse(pointStrings[0].Split(',')[1])
-					},
-					B = new Point
-					{
-						X = int.Parse(pointStrings[1].Split(',')[0]),
-						Y = int.Parse(pointStrings[1].Split(',')[1])
-					}
-				};
+				var line = new Line(
+					int.Parse(pointStrings[0].Split(',')[0]),
+					int.Parse(pointStrings[0].Split(',')[1]),
+					int.Parse(pointStrings[1].Split(',')[0]),
+					int.Parse(pointStrings[1].Split(',')[1])
+				);
 				lines.Add(line);
 			}
 			return lines;
@@ -66,10 +59,6 @@ namespace AdventOfCode2021
 		public class Point
 		{
 			public int X, Y;
-
-			public Point()
-			{
-			}
 
 			public Point(int x, int y)
 			{
@@ -109,6 +98,12 @@ namespace AdventOfCode2021
 			private bool? isHorizontal;
 			private bool? isVertical;
 			private readonly List<Point> _vertices = new();
+
+			public Line(int aX, int aY, int bX, int bY)
+			{
+				A = new Point(aX, aY);
+				B = new Point(bX, bY);
+			}
 
 			public Point A { get; set; }
 			public Point B { get; set; }
