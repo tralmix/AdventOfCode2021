@@ -13,5 +13,6 @@ foreach (var arg in args)
 		case 3: Day03.Run(); break;
 		case 4: Day04.Run(); break;
 		case 5: Day05.Run(); break;
+		case 6: Day06.Run(); break;
 	}
 }
