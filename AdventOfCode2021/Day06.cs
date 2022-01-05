@@ -9,7 +9,7 @@
 
 			var orderedInput = input.Split(',').Select(int.Parse).OrderBy(x=>x).ToArray();
 
-			var groups = Enumerable.Repeat(0l, 9).ToList();
+			var groups = Enumerable.Repeat(0L, 9).ToList();
 			foreach (var number in orderedInput.Distinct())
 				groups.Insert(number, orderedInput.Count(x => x == number));
 
