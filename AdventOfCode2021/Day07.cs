@@ -80,7 +80,6 @@
 				if (index < target)
 				{
 					var foo = Enumerable.Range(index, target - index).Select(x => x - index + 1);
-					//Console.WriteLine($"At position {index} with target {average} requiring fuel cost {string.Join(',', foo)} totaling {foo.Sum()}");
 					distanceTotals.Add(foo.Sum() * groups[index]);
 				}
 				else if (index == target)
@@ -88,7 +87,6 @@
 				else
 				{
 					var foo = Enumerable.Range(target, index - target).Select(x => x - target + 1);
-					//Console.WriteLine($"At position {index} with target {average} requiring fuel cost {string.Join(',', foo)} totaling {foo.Sum()}");
 					distanceTotals.Add(foo.Sum() * groups[index]);
 				}
 			}
