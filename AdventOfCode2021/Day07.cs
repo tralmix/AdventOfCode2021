@@ -75,20 +75,16 @@
 		private static long CalulatePart2Fuel(int target, List<long> groups)
 		{
 			var distanceTotals = new List<long>();
+			int fuelUsedPerCrab = 0;
 			for (int index = 0; index < groups.Count; index++)
 			{
 				if (index < target)
-				{
-					var foo = Enumerable.Range(index, target - index).Select(x => x - index + 1);
-					distanceTotals.Add(foo.Sum() * groups[index]);
-				}
+					fuelUsedPerCrab = Enumerable.Range(index, target - index).Select(x => x - index + 1).Sum();
 				else if (index == target)
-					distanceTotals.Add(0);
+					fuelUsedPerCrab = 0;
 				else
-				{
-					var foo = Enumerable.Range(target, index - target).Select(x => x - target + 1);
-					distanceTotals.Add(foo.Sum() * groups[index]);
-				}
+					fuelUsedPerCrab = Enumerable.Range(target, index - target).Select(x => x - target + 1).Sum();
+				distanceTotals.Add(fuelUsedPerCrab * groups[index]);
 			}
 
 			var fuelUsed = distanceTotals.Sum();
