@@ -20,38 +20,37 @@
 
 		public static long RunPartOne(int[] inputAsintegers)
 		{
-			var orderedInput = inputAsintegers.OrderBy(x => x).ToArray();
+			List<long> groups = GroupInputs(inputAsintegers);
 
-			var median = orderedInput[(int)Math.Round(orderedInput.Length / 2d)];
+			var median = inputAsintegers.OrderBy(x => x).ToArray()[(int)Math.Round(inputAsintegers.Length / 2d)];
 			Console.WriteLine($"Median is {median}");
 
-			var groups = Enumerable.Repeat(0L, orderedInput.Max()).ToList();
-			foreach (var number in orderedInput.Distinct())
-				groups.Insert(number, orderedInput.Count(x => x == number));
-
-			var fuelTotals = new List<long>();
-			for (int index = 0; index < groups.Count; index++)
-			{
-				var numberAtPoint = groups[index];
-				var distanceGroupMustTravel = Math.Abs(index - median) * numberAtPoint;
-				fuelTotals.Add(distanceGroupMustTravel);
-			}
+			List<long> fuelTotals = CalculatePart1Fuel(median, groups);
 
 			var totalFuelUsedByAll = fuelTotals.Sum();
 
 			return totalFuelUsedByAll;
 		}
 
+		private static List<long> CalculatePart1Fuel(int target, List<long> groups)
+		{
+			var fuelTotals = new List<long>();
+			for (int index = 0; index < groups.Count; index++)
+			{
+				var numberAtPoint = groups[index];
+				var distanceGroupMustTravel = Math.Abs(index - target) * numberAtPoint;
+				fuelTotals.Add(distanceGroupMustTravel);
+			}
+
+			return fuelTotals;
+		}
+
 		public static long RunPartTwo(int[] inputAsintegers)
 		{
-			var orderedInput = inputAsintegers.OrderBy(x => x).ToArray();
+			List<long> groups = GroupInputs(inputAsintegers);
 
-			var average = (int)Math.Round(orderedInput.Average());
-			Console.WriteLine($"Average is {average}[int] {orderedInput.Average()}[double]");
-
-			var groups = Enumerable.Repeat(0L, orderedInput.Max()).ToList();
-			foreach (var number in orderedInput.Distinct())
-				groups.Insert(number, orderedInput.Count(x => x == number));
+			var average = (int)Math.Round(inputAsintegers.Average());
+			Console.WriteLine($"Average is {average}[int] {inputAsintegers.Average()}[double]");
 
 			// Check +/- 1 of average to account for margin of error in actual positions of crabs
 			var fuelUsed = CalulatePart2Fuel(average, groups);
@@ -59,6 +58,18 @@
 			fuelUsed = Math.Min(fuelUsed, CalulatePart2Fuel(average + 1, groups));
 
 			return fuelUsed;
+		}
+
+		private static List<long> GroupInputs(int[] inputAsintegers)
+		{
+			var orderedInput = inputAsintegers.OrderBy(x => x).ToArray();
+
+			var groups = Enumerable.Repeat(0L, orderedInput.Max()).ToList();
+
+			foreach (var number in orderedInput.Distinct())
+				groups.Insert(number, orderedInput.Count(x => x == number));
+
+			return groups;
 		}
 
 		private static long CalulatePart2Fuel(int target, List<long> groups)
