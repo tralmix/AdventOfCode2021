@@ -10,7 +10,7 @@ namespace AdventOfCode2021.Tests
 {
 	public class Day08Validation
 	{
-		public static readonly string[] Input = new string[] {
+		private static readonly string[] Input = new string[] {
 			"be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe",
 			"edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec | fcgedb cgb dgebacf gc",
 			"fgaebd cg bdaec gdafb agbcfd gdcbef bgcad gfac gcb cdgabef | cg cg fdcagb cbg",
@@ -23,11 +23,17 @@ namespace AdventOfCode2021.Tests
 			"gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce"
 		};
 
+		private static readonly int _linesToParse = 10;
+		private static readonly int _partOneDigitsIdentifiableBySegmentCount = 26;
+		private static readonly int _partTwoSum = 61229;
+
 		[Fact]
 		public void VerifyParser()
 		{
 			var input = Day08.ParseInputs(Input);
-			input.Count.ShouldBe(10);
+			input.Count.ShouldBe(_linesToParse);
+			input[0].Digits.Count.ShouldBe(10);
+			input[0].Display.Count.ShouldBe(4);
 		}
 
 		[Fact]
@@ -37,7 +43,17 @@ namespace AdventOfCode2021.Tests
 
 			var answer = Day08.RunPartOne(input);
 
-			answer.ShouldBe(26);
+			answer.ShouldBe(_partOneDigitsIdentifiableBySegmentCount);
+		}
+
+		[Fact]
+		public void ValidatePartTwo()
+		{
+			var input = Day08.ParseInputs(Input);
+
+			var answer = Day08.RunPartTwo(input);
+
+			answer.ShouldBe(_partTwoSum);
 		}
 	}
 }
