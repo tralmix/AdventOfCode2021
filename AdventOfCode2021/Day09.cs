@@ -9,6 +9,8 @@
 			var parsedInput = ParseInput(day09LinesOfInput);
 
 			var partOneAnswer = RunPartOne(parsedInput);
+
+			Console.WriteLine($"Day 09 - Part 1 - The sum of the risk levels is {partOneAnswer}");
 		}
 
 		public static int RunPartOne(int[,] input)
@@ -16,8 +18,6 @@
 			var lowPointValues = GetLowPointValues(input);
 
 			var sumOfRiskLevels = lowPointValues.Sum() + lowPointValues.Count();
-
-			Console.WriteLine($"Day 09 - Part 1 - The sum of the risk levels is {sumOfRiskLevels}");
 
 			return sumOfRiskLevels;
 		}
